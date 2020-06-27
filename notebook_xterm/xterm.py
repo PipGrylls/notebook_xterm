@@ -5,10 +5,13 @@ import os
 from .terminalserver import TerminalServer
 from IPython.core.display import display, HTML
 from IPython.core.magic import (Magics, magics_class, line_magic, cell_magic)
+
 from base64 import b64encode
 from uuid import uuid4
 
+
 JS_FILE_NAME = 'terminalclient.js'
+
 
 @magics_class
 class Xterm(Magics):
@@ -29,7 +32,7 @@ class Xterm(Magics):
         """
         display(HTML(markup))
         ts = self.getTerminalServer()
-
+        ts.initial_command = bytes(line, encoding="utf-8") + b"\r"
         return self.getTerminalServer()
 
     def getTerminalServer(self):
