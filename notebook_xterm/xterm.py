@@ -8,6 +8,7 @@ from IPython.core.magic import (Magics, magics_class, line_magic, cell_magic)
 from base64 import b64encode
 from uuid import uuid4
 
+
 JS_FILE_NAME = 'terminalclient.js'
 
 
@@ -19,6 +20,8 @@ class Xterm(Magics):
         jsPath = os.path.abspath(os.path.dirname(__file__)) + '/' + JS_FILE_NAME
         with open(jsPath) as f:
             terminalClient_js = f.read()
+
+
         unique_id = str(uuid4())
         markup = f"""
             <div id="notebook_xterm_{unique_id}"></div>
@@ -31,7 +34,6 @@ class Xterm(Magics):
         ts.initial_command = bytes(line, encoding="utf-8") + b"\r"
 
         return self.getTerminalServer()
-        #ts.transmit(b64encode(b"ls"))
 
     def getTerminalServer(self):
         try:
