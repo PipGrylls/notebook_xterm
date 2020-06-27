@@ -24,11 +24,12 @@ class Xterm(Magics):
 
         unique_id = str(uuid4())
         markup = f"""
-            <div id="notebook_xterm_{unique_id}"></div>
-            <script id="notebook_script">{terminalClient_js}
-            window.terminalClient = new TerminalClient($('#notebook_xterm_{unique_id}'))
-            </script >
-            """
+        <div id="notebook_xterm_{unique_id}"></div>
+        <script id="notebook_script">{terminalClient_js}
+        
+        window.terminalClient = new TerminalClient($('#notebook_xterm_{unique_id}'))
+        </script >
+        """
         display(HTML(markup))
         ts = self.getTerminalServer()
         ts.initial_command = bytes(line, encoding="utf-8") + b"\r"
