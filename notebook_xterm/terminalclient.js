@@ -182,5 +182,5 @@ if (window.terminalClient) {
     delete window.terminalClient;
 }
 
-window.terminalClient = new TerminalClient($('#notebook_xterm'))
+
 
