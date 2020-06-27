@@ -1,10 +1,10 @@
 from setuptools import setup
 
-setup(name='notebook_xterm',
+setup(name='notebook_xterm_local',
       version='0.2.0',
       description='A fully-functional terminal emulator in a Jupyter notebook.',
-      url='http://github.com/adamj9431/notebook_xterm',
-      author='Adam Johnson',
+      url='http://github.com/PipGrylls/notebook_xterm',
+      author='Adam Johnson Forked by Philip Grylls',
       author_email='adam.johnson@us.ibm.com',
       license='MIT',
       packages=['notebook_xterm'],

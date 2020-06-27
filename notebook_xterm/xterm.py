@@ -19,10 +19,13 @@ class Xterm(Magics):
         jsPath = os.path.abspath(os.path.dirname(__file__)) + '/' + JS_FILE_NAME
         with open(jsPath) as f:
             terminalClient_js = f.read()
-        markup = """
-        <div id="notebook_xterm"></div>
-        <script id="notebook_script">{0}</script>
-        """.format(terminalClient_js)
+        unique_id = str(uuid4())
+        markup = f"""
+            <div id="notebook_xterm_{unique_id}"></div>
+            <script id="notebook_script">{terminalClient_js}
+            window.terminalClient = new TerminalClient($('#notebook_xterm_{unique_id}'))
+            </script >
+            """
         display(HTML(markup))
         ts = self.getTerminalServer()
         ts.initial_command = bytes(line, encoding="utf-8") + b"\r"

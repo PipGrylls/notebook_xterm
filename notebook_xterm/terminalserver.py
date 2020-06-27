@@ -4,6 +4,7 @@ from __future__ import (absolute_import, division,
 import pty, os, tty, termios, time, sys, base64, struct, signal
 from fcntl import fcntl, F_GETFL, F_SETFL, ioctl
 
+
 class TerminalServer:
     def __init__(self):
         self.closed = False
@@ -11,13 +12,13 @@ class TerminalServer:
         if self.pid == pty.CHILD:
             # we are in the forked process
             # blow it away and replace with a shell
-            os.execvp('bash',['bash'])
+            os.execvp('bash', ['bash'])
         else:
             tty.setraw(self.fd, termios.TCSANOW)
 
             #open the shell process file descriptor as read-write
             if sys.version_info >= (3, 0):
-                self.file = os.fdopen(self.fd,'wb+', buffering=0)
+                self.file = os.fdopen(self.fd, 'wb+', buffering=0)
             else:
                 #python 2 compatible code
                 self.file = os.fdopen(self.fd,'wb+', 0)
@@ -29,7 +30,7 @@ class TerminalServer:
     def initial_transmit(self):
         self.transmit(base64.b64encode(self.initial_command))
 
-    def transmit(self,data):
+    def transmit(self, data):
         # data in the "channel" is b64 encoded so that control characters
         # don't get lost
         os.write(self.fd, base64.b64decode(data))
@@ -43,11 +44,12 @@ class TerminalServer:
         sys.stdout.write(base64.b64encode(data))
 
     def update_window_size(self, rows, cols):
-        #notify that the pty size should change to match xterm.js
+        # notify that the pty size should change to match xterm.js
         TIOCSWINSZ = getattr(termios, 'TIOCSWINSZ', -2146929561)
         s = struct.pack('HHHH', rows, cols, 0, 0)
         ioctl(self.fd, TIOCSWINSZ, s)
         self.receive()
+
     def close(self):
         if not self.closed:
             #send hang up to bash since the xterm is closing
