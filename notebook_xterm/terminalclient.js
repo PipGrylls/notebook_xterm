@@ -49,6 +49,8 @@ function TerminalClient(elem) {
         this.poll_server();
         console.log('Starting notebook_xterm.');
 
+        this.server_exec(PY_TERMINAL_SERVER + '.initial_transmit()');
+
     }.bind(this));
 }
 
@@ -179,3 +181,4 @@ if (window.terminalClient) {
     window.terminalClient.close()
     delete window.terminalClient;
 }
+
