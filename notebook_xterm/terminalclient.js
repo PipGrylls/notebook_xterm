@@ -179,3 +179,4 @@ TerminalClient.prototype.close = function() {
 if (window.terminalClient) {
     window.terminalClient.close()
     delete window.terminalClient;
+window.terminalClient = new TerminalClient($('#notebook_xterm'))
