@@ -180,3 +180,4 @@ TerminalClient.prototype.close = function() {
 if (window.terminalClient) {
     window.terminalClient.close()
     delete window.terminalClient;
+    }
